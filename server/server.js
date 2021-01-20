@@ -1,0 +1,40 @@
+const express = require('express');
+const app = express();
+const mysql = require('mysql');
+const cors = require('cors');
+
+app.use(cors());
+
+const sql = mysql.createConnection({
+    host : '***',
+    user: 'edulinkstore_DB',
+    password: '***',
+    database: 'edulinkstore_DB'
+});
+
+sql.connect();
+
+let port = 4000;
+app.listen(port, ()=> {
+console.log(`listening on port ${port}`);
+
+});
+
+let indexQuery = 'SELECT p.product_id, p.sku, p.model, p.quantity, pd.name, c.name AS "Categoria" FROM product AS p JOIN product_description AS pd ON p.product_id = pd.product_id JOIN product_to_category AS pc ON pc.product_id = p.product_id JOIN category_description AS c ON c.category_id = pc.category_id';
+
+app.get('/', (req, res) => {
+    sql.query(indexQuery, (err, results) => {
+        if (err) throw err;
+        res.send(results);
+    });
+});
+
+app.get('/:sku', (req, res) => {
+    let skuQuery = `SELECT p.product_id, p.sku, p.model, p.quantity, pd.name, c.name AS "Categoria" FROM product AS p JOIN product_description AS pd ON p.product_id = pd.product_id JOIN product_to_category AS pc ON pc.product_id = p.product_id JOIN category_description AS c ON c.category_id = pc.category_id WHERE p.sku = ${req.params.sku}`;
+
+    sql.query(skuQuery, (err, results) => {
+        if (err) throw err;
+        res.send(results);
+    });
+
+});
