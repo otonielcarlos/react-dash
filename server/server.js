@@ -8,10 +8,10 @@ const cors = require('cors');
 app.use(cors());
 
 const sql = mysql.createConnection({
-    host : '173.231.198.187',
-    user: 'edulinkstore_DB',
-    password: '.-.bdi-2020.-.',
-    database: 'edulinkstore_DB'
+    host : '+++',
+    user: '+++',
+    password: '+++',
+    database: '+++'
 });
 
 sql.connect();

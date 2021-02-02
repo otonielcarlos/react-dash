@@ -21,10 +21,8 @@ useEffect(() =>{
           })
           .then(response => response.json())
           .then (data => {
-
             setResult(data);
             console.log(data);
-    
           });
 } , [props.sku]);
 
@@ -34,11 +32,11 @@ let urlImage = `http://www.bdicentralserver.com/images/product/pe/${skuImage}.jp
 
 {result.map( (product, key) => {
     return (<div key={key}>
-        <li>Nombre: {product.name}</li>
-        <li>Sku: {product.sku}</li>
-        <li>Modelo: {product.model}</li>
-        <li>Cantidad: {product.quantity}</li>
-        <img src={urlImage} />
+                <li>Nombre: {product.name}</li>
+                <li>Sku: {product.sku}</li>
+                <li>Modelo: {product.model}</li>
+                <li>Cantidad: {product.quantity}</li>
+                <img src={urlImage} />
         
         </div>)
 }) }
